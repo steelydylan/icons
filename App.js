@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { View } from 'react-native';
+import ScrollableTabView, { DefaultTabBar } from 'react-native-scrollable-tab-view';
 import { Header } from 'react-native-elements';
+import IconsPage from './icons-page';
 
 export default class App extends React.Component {
 
@@ -24,49 +26,21 @@ export default class App extends React.Component {
     };
   }
 
-
   render() {
     const { items } = this.state;
-
     return (
-      <View>
+      <View style={{ display: 'flex', height: '100%' }} >
         <Header
           leftComponent={{ icon: 'menu', color: '#fff' }}
           centerComponent={{ text: 'ICONS', style: { color: '#fff' } }}
           rightComponent={{ icon: 'home', color: '#fff' }}
         />
-        <View style={styles.container}>
-          {items.map((item) => {
-            return (<View style={styles.iconDevider}>
-              <Image source={require('./assets/icon.png')} style={styles.icon}/>
-            </View>);
-          })}
-        </View>
+        <ScrollableTabView
+          initialPage={0}
+          renderTabBar={() => <DefaultTabBar />}>
+          <IconsPage tabLabel="お気に入り" items={items} />
+          <View tabLabel="ブラウザー"/>
+        </ScrollableTabView>
       </View>);
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexWrap: 'wrap',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingTop: 50
-  },
-  text: {
-    fontSize: 40
-  },
-  icon: {
-    width: 50,
-    height: 50
-  },
-  iconDevider: {
-    width: '25%',
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: 40
-  }
-});
