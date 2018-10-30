@@ -1,17 +1,18 @@
 import React from 'react';
-import { StyleSheet, View, TouchableHighlight, Image, Linking } from 'react-native';
+import { StyleSheet, View, TouchableHighlight, Image, Linking, TextInput } from 'react-native';
 
 export default class IconPage extends React.Component {
   render() {
     const { items } = this.props;
     return (
       <View style={styles.container}>
-        {items.map((item) => {
+        {items.map((item, index) => {
           return (<TouchableHighlight
             style={styles.iconDevider}
             onPress={() => {
               Linking.openURL(item.url);
             }}
+            key={item.id}
           >
             <Image
               style={styles.icon}
